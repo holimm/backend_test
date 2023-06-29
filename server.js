@@ -57,18 +57,19 @@ app.post("/api/post-request-content", async (req, res) => {
   }
 });
 
-app.post("/api/rpa-uipath"),
-  async (req, res) => {
-    try {
-      await client.connect();
-      client
-        .db("ZaloMiniApp")
-        .collection("UIPath")
-        .insertOne(req.body, (err) => {
-          if (err) throw err;
-          res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
-        });
-    } catch {
-      res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
-    }
-  };
+app.post("/api/rpa-uipath", async (req, res) => {
+  try {
+    // await client.connect();
+    // client
+    //   .db("ZaloMiniApp")
+    //   .collection("UIPath")
+    //   .insertOne(req.body, (err) => {
+    //     if (err) throw err;
+    //     res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
+    //   });
+    console.log(req.body);
+  } catch {
+    console.log("Failed");
+    // res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
+  }
+});
