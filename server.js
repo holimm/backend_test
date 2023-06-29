@@ -59,5 +59,9 @@ app.post("/api/post-request-content", async (req, res) => {
 
 app.post("/api/rpa-uipath"),
   (req, res) => {
-    console.log(req.body);
+    try {
+      res.send({ status: "success", message: req.body });
+    } catch {
+      res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
+    }
   };
