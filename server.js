@@ -66,7 +66,7 @@ app.post("/api/rpa-uipath", async (req, res) => {
       .insertOne(req.body, (err) => {
         if (err) throw err;
         res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
-        console.log("Data has been pushed successfully!");
+        console.log(req.body);
       });
     // console.log(req.body.autoReponse);
     // console.log(req.body.body);
@@ -74,9 +74,9 @@ app.post("/api/rpa-uipath", async (req, res) => {
     // console.log(req.body);
     // res.send({ status: "success", message: "Successfully" });
   } catch (err) {
-    console.log(err);
     // res.send({ status: "success", message: "Failure" });
     res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
+    console.log(err);
   }
 });
 
@@ -93,7 +93,7 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
         console.log("Get UIPath Email List Successfully!");
       });
   } catch (err) {
-    res.send(err);
+    res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
     console.log(err);
   }
 });
