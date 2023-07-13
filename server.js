@@ -2,6 +2,11 @@ var express = require("express");
 var path = require("path");
 var multer = require("multer");
 // var db = require('./database')
+app.use(
+  multer({
+    dest: "uploads/",
+  })
+);
 const bcrypt = require("bcrypt");
 const PORT = 8080;
 const { MongoClient, ServerApiVersion } = require("mongodb");
