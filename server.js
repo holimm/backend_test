@@ -132,6 +132,7 @@ app.post("/api/file-upload/post", async (req, res) => {
   try {
     upload(req, res, function (err) {
       if (err) {
+        console.log(err);
         res.send({ status: "error", content: "Lỗi khi đăng hình ảnh" });
       } else {
         res.send({ status: "valid", content: req.file.filename });
