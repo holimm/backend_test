@@ -2,7 +2,6 @@ var express = require("express");
 var path = require("path");
 var multer = require("multer");
 // var db = require('./database')
-
 const bcrypt = require("bcrypt");
 const PORT = 8080;
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -13,7 +12,6 @@ var app = express();
 app.listen(process.env.PORT || PORT, function () {
   console.log(`started listen port ${PORT}`);
 });
-
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 var cors = require("cors");
@@ -100,10 +98,16 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
   }
 });
 
+var storage = multer.memoryStorage({
+  destination: function (req, file, callback) {
+    callback(null, "");
+  },
+});
+
 const maxSize = 10 * 1000 * 1000;
 
 var upload = multer({
-  storage: null,
+  storage: storage,
   limits: { fileSize: maxSize },
   fileFilter: function (req, file, cb) {
     var filetypes = /jpeg|jpg|png/;
@@ -131,8 +135,10 @@ app.post("/api/file-upload/post", async (req, res) => {
         res.send({ status: "valid", content: req.file.filename });
       }
     });
+    // console.log(req);
+    // res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
   } catch (err) {
-    res.send({ status: "error", message: "Gửi yêu cầu thất bại!" });
+    res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
     console.log(err);
   }
 });
