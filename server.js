@@ -1,6 +1,7 @@
 var express = require("express");
 var path = require("path");
 var multer = require("multer");
+var upload = multer();
 // var db = require('./database')
 const bcrypt = require("bcrypt");
 const PORT = 8080;
@@ -100,10 +101,20 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
 
 app.post("/api/file-upload/post", async (req, res) => {
   try {
-    console.log(req);
-    res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
+    upload(req, res, function (err) {
+      if (err) {
+        console.log(err);
+        res.send({ status: "error", message: "Gửi yêu cầu thất bại!" });
+        return;
+      } else {
+        console.log(req.file, " | ", req.files);
+        res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
+      }
+    });
+    // console.log(req);
+    // res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
   } catch (err) {
-    res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
+    res.send({ status: "error", message: "Gửi yêu cầu thất bại!" });
     console.log(err);
   }
 });
