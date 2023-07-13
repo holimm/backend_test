@@ -98,29 +98,10 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
   }
 });
 
-var storage = multer.memoryStorage({
-  destination: function (req, file, callback) {
-    callback(null, "");
-  },
-});
-
-const maxSize = 10 * 1000 * 1000;
-
-app.use(multer({ storage: storage }).fields([{ name: "image", maxCount: 1 }]));
-
 app.post("/api/file-upload/post", async (req, res) => {
   try {
-    upload(req, res, function (err) {
-      if (err) {
-        console.log(err);
-        res.send({ status: "error", content: "Lỗi khi đăng hình ảnh" });
-      } else {
-        console.log(req.file);
-        res.send({ status: "valid", content: req.file.filename });
-      }
-    });
-    // console.log(req);
-    // res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
+    console.log(req);
+    res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
   } catch (err) {
     res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
     console.log(err);
