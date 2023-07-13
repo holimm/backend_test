@@ -106,23 +106,7 @@ var storage = multer.memoryStorage({
 
 const maxSize = 10 * 1000 * 1000;
 
-var upload = multer({
-  storage: storage,
-  limits: { fileSize: maxSize },
-  fileFilter: function (req, file, cb) {
-    var filetypes = /jpeg|jpg|png/;
-    var mimetype = filetypes.test(file.mimetype);
-    var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    if (mimetype && extname) {
-      return cb(null, true);
-    }
-    cb(
-      "Error: File upload only supports the " +
-        "following filetypes - " +
-        filetypes
-    );
-  },
-}).single("image");
+app.use(multer({ storage: storage }).fields([{ name: "image", maxCount: 1 }]));
 
 app.post("/api/file-upload/post", async (req, res) => {
   try {
