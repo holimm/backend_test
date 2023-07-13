@@ -100,6 +100,16 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
 
 const maxSize = 10 * 1000 * 1000;
 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/img/blog");
+  },
+  filename: function (req, file, cb) {
+    var fileName = file.fieldname + "-" + Date.now() + ".jpg";
+    cb(null, fileName);
+  },
+});
+
 var upload = multer({
   storage: storage,
   limits: { fileSize: maxSize },
