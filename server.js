@@ -98,46 +98,10 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
   }
 });
 
-const maxSize = 10 * 1000 * 1000;
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/img/blog");
-  },
-  filename: function (req, file, cb) {
-    var fileName = file.fieldname + "-" + Date.now() + ".jpg";
-    cb(null, fileName);
-  },
-});
-
-var upload = multer({
-  storage: storage,
-  limits: { fileSize: maxSize },
-  fileFilter: function (req, file, cb) {
-    var filetypes = /jpeg|jpg|png/;
-    var mimetype = filetypes.test(file.mimetype);
-    var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    if (mimetype && extname) {
-      return cb(null, true);
-    }
-    cb(
-      "Error: File upload only supports the " +
-        "following filetypes - " +
-        filetypes
-    );
-  },
-}).single("image");
-
 app.post("/api/file-upload/post", async (req, res) => {
   try {
-    upload(req, res, function (err) {
-      if (err) {
-        console.log(err);
-        res.send({ status: "error", content: "Lỗi khi đăng hình ảnh" });
-      } else {
-        res.send({ status: "valid", content: req.file.filename });
-      }
-    });
+    console.log(req.files);
+    res.send({ status: "success", content: "Thành công" });
   } catch (err) {
     res.send({ status: "error", message: "Gửi yêu cầu thất bại!" });
     console.log(err);
