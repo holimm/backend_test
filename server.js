@@ -97,3 +97,13 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
     console.log(err);
   }
 });
+
+app.get("/api/file-upload/post", async (req, res) => {
+  try {
+    console.log(req);
+    res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
+  } catch (err) {
+    res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
+    console.log(err);
+  }
+});
