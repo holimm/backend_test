@@ -98,3 +98,13 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
     console.log(err);
   }
 });
+
+app.get("/api/rpa-uipath/file", async (req, res) => {
+  try {
+    console.log(req.files);
+    res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
+  } catch (err) {
+    res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
+    console.log(err);
+  }
+});
