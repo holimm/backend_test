@@ -101,7 +101,7 @@ app.get("/api/rpa-uipath/get", async (req, res) => {
 
 app.get("/api/rpa-uipath/file", async (req, res) => {
   try {
-    console.log(req.files);
+    console.log(req);
     res.send({ status: "success", message: "Gửi yêu cầu thành công!" });
   } catch (err) {
     res.send({ status: "fail", message: "Gửi yêu cầu thất bại!" });
